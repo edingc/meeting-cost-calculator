@@ -1,0 +1,231 @@
+:root {
+    --primary:       #059669;
+    --primary-dark:  #0A1F14;
+    --primary-light: #34D399;
+    --accent-amber:  #F59E0B;
+    --accent-rust:   #DC6B3A;
+    --accent-sand:   #FDE68A;
+    --black: #0a0a0a;
+    --white: #ffffff;
+}
+
+/* ── Page ── */
+body {
+    background-color: var(--primary-dark);
+    background-image: linear-gradient(135deg, var(--primary-dark) 0%, #1B4332 100%);
+    min-height: 100vh;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    font-family: 'Inter', system-ui, sans-serif;
+}
+
+/* ── Header banner ── */
+.page-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.page-header h1 {
+    color: var(--white);
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    font-size: 3rem;
+}
+
+.page-header .tagline {
+    color: var(--primary-light);
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+/* ── How-it-works banner ── */
+.how-it-works {
+    background-color: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(52, 211, 153, 0.25);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 2rem;
+    color: var(--white);
+}
+
+.how-it-works h6,
+.how-it-works-toggle {
+    color: var(--primary-light);
+    font-family: inherit;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.75rem;
+    margin-bottom: 0.75rem;
+}
+
+.how-it-works-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.how-it-works-toggle:focus-visible {
+    outline: 2px solid var(--primary-light);
+    outline-offset: 3px;
+    border-radius: 3px;
+}
+
+.toggle-chevron {
+    width: 14px;
+    height: 14px;
+    transition: transform 0.2s ease;
+    flex-shrink: 0;
+}
+
+.how-it-works-toggle[aria-expanded="false"] .toggle-chevron {
+    transform: rotate(180deg);
+}
+
+.how-it-works ol,
+.how-it-works ul {
+    margin: 0;
+    padding-left: 1.25rem;
+    font-size: 0.9rem;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.how-it-works ol li strong,
+.how-it-works ul li strong {
+    color: var(--accent-sand);
+}
+
+/* ── Card ── */
+.card {
+    border: none;
+    border-radius: 16px;
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.4);
+    background-color: var(--white);
+}
+
+.card-title {
+    color: #1B4332;
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 700;
+    font-size: 1.75rem;
+}
+
+/* ── Role rows ── */
+.role-row {
+    border-bottom: 1px solid #e8edf5;
+    padding-bottom: 15px;
+}
+
+.role-row:last-child {
+    border-bottom: none;
+}
+
+.form-label {
+    color: #1B4332;
+}
+
+/* ── Add attendee button ── */
+.btn-add-row {
+    background-color: transparent;
+    color: var(--primary);
+    border: 2px solid var(--primary);
+    font-weight: 600;
+    transition: background-color 0.15s, color 0.15s;
+}
+
+.btn-add-row:hover {
+    background-color: var(--primary);
+    color: var(--white);
+}
+
+/* ── Duration input ── */
+.form-control:focus {
+    border-color: var(--primary-light);
+    box-shadow: 0 0 0 0.2rem rgba(52, 211, 153, 0.25);
+}
+
+.input-group-text {
+    background-color: var(--primary);
+    color: var(--white);
+    border-color: var(--primary);
+    font-weight: 600;
+}
+
+hr {
+    border-color: #dde3ee;
+    opacity: 1;
+}
+
+/* ── Result box ── */
+.result-box {
+    background: linear-gradient(135deg, #1B4332 0%, var(--primary-dark) 100%);
+    color: var(--white);
+    border-radius: 12px;
+    padding: 24px 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.result-box::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, transparent 60%, rgba(245, 158, 11, 0.15) 100%);
+    pointer-events: none;
+}
+
+.result-box .result-label {
+    color: var(--primary-light);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    margin-bottom: 0.25rem;
+}
+
+.result-box #total-cost {
+    color: var(--white);
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 4rem;
+    font-weight: 800;
+}
+
+/* ── Remove button ── */
+.btn-remove {
+    background-color: transparent;
+    color: var(--accent-rust);
+    border: 2px solid var(--accent-rust);
+    font-weight: 700;
+    line-height: 1;
+    transition: background-color 0.15s, color 0.15s;
+}
+
+.btn-remove:hover {
+    background-color: var(--accent-rust);
+    color: var(--white);
+}
+
+/* ── Valid/invalid search feedback ── */
+.title-search.is-valid {
+    border-color: var(--primary-light);
+    background-image: none;
+}
+
+.title-search.is-valid:focus {
+    box-shadow: 0 0 0 0.2rem rgba(52, 211, 153, 0.25);
+}
+
+/* ── Footer ── */
+.site-footer {
+    text-align: center;
+    padding: 2rem 0 1rem;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.78rem;
+}
