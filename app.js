@@ -15,7 +15,7 @@ async function loadSalaries() {
             datalist.appendChild(option);
         });
 
-        addRoleRow();
+        restoreState();
     } catch (error) {
         console.error("Error:", error);
         document.getElementById('roles-container').innerHTML =
@@ -89,6 +89,40 @@ function calculate() {
         style: 'currency',
         currency: 'USD'
     }).format(totalCost);
+
+    saveState();
+}
+
+function saveState() {
+    const duration = document.getElementById('duration').value;
+    const rows = [...document.querySelectorAll('.role-row')].map(row => ({
+        title: row.querySelector('.title-search').value,
+        salary: row.querySelector('.salary-value').value,
+        qty: row.querySelector('.qty-input').value
+    }));
+    localStorage.setItem('meetingState', JSON.stringify({ duration, rows }));
+}
+
+function restoreState() {
+    const saved = localStorage.getItem('meetingState');
+    if (!saved) { addRoleRow(); return; }
+
+    const { duration, rows } = JSON.parse(saved);
+    document.getElementById('duration').value = duration;
+
+    if (!rows.length) { addRoleRow(); return; }
+
+    rows.forEach(({ title, salary, qty }) => {
+        addRoleRow();
+        const lastRow = document.getElementById('roles-container').lastElementChild;
+        const titleInput = lastRow.querySelector('.title-search');
+        titleInput.value = title;
+        lastRow.querySelector('.salary-value').value = salary;
+        lastRow.querySelector('.qty-input').value = qty;
+        if (title && parseFloat(salary) > 0) titleInput.classList.add('is-valid');
+    });
+
+    calculate();
 }
 
 function exportCSV() {
