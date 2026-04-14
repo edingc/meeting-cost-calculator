@@ -91,4 +91,42 @@ function calculate() {
     }).format(totalCost);
 }
 
+function exportCSV() {
+    const duration = parseFloat(document.getElementById('duration').value) || 0;
+    const rows = document.querySelectorAll('.role-row');
+
+    const headers = ['Job Title', 'Quantity', 'Annual Salary', 'Hourly Rate', 'Duration (min)', 'Subtotal'];
+    const csvRows = [headers];
+    let totalCost = 0;
+
+    rows.forEach(row => {
+        const title = row.querySelector('.title-search').value || '(Untitled)';
+        const salary = parseFloat(row.querySelector('.salary-value').value) || 0;
+        const qty = parseInt(row.querySelector('.qty-input').value) || 0;
+        const hourlyRate = salary / 2080;
+        const subtotal = (hourlyRate / 60) * duration * qty;
+        totalCost += subtotal;
+
+        csvRows.push([
+            `"${title.replace(/"/g, '""')}"`,
+            qty,
+            salary.toFixed(2),
+            hourlyRate.toFixed(4),
+            duration,
+            subtotal.toFixed(2)
+        ]);
+    });
+
+    csvRows.push(['', '', '', '', 'Total', totalCost.toFixed(2)]);
+
+    const csvContent = csvRows.map(r => r.join(',')).join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `meeting-cost-${new Date().toISOString().slice(0, 10)}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+}
+
 loadSalaries();
